@@ -1,0 +1,13 @@
+name = "soc-playbook-studio-api"
+main = "worker.js"
+compatibility_date = "2026-10-19"
+
+[vars]
+# Change GITHUB_OWNER / GITHUB_REPO to the repository that contains this SOC Playbook Studio project.
+GITHUB_OWNER = "studentjaynevarekar"
+GITHUB_REPO = "REPLACE_WITH_YOUR_SOC_STUDIO_REPO"
+GITHUB_PATH = "public/soc-playbooks-backup.json"
+GITHUB_BRANCH = "main"
+ADMIN_USERNAME = "admin"
+# Use the exact origin shown in your browser address bar for GitHub Pages. Add a custom domain if used.
+ALLOWED_ORIGIN = "https://studentjaynevarekar.github.io,http://localhost:5173,http://127.0.0.1:5173,http://localhost:4173,http://127.0.0.1:4173"
