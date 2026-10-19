@@ -1,0 +1,443 @@
+{
+  "format": "SOC Playbook Studio",
+  "version": 1,
+  "playbooks": [
+    {
+      "id": "PB-001",
+      "name": "Suspicious PowerShell Execution",
+      "category": "Endpoint",
+      "description": "The monitoring team identified PowerShell execution that may require validation. Review the initiating process, user context, command line, and destination details to determine whether the activity aligns with approved administrative or business operations.",
+      "fields": [
+        {
+          "key": "HostName",
+          "value": "WS-042"
+        },
+        {
+          "key": "UserName",
+          "value": "j.smith"
+        },
+        {
+          "key": "ProcessName",
+          "value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "key": "CommandLine",
+          "value": "powershell.exe -enc [redacted]"
+        },
+        {
+          "key": "EventTime",
+          "value": "2026-10-09 08:42:16"
+        }
+      ],
+      "template": "The monitoring team observed suspicious PowerShell execution on endpoint {{HostName}} at {{EventTime}}. The activity was associated with user {{UserName}}, with process {{ProcessName}} executing the command line: {{CommandLine}}.\n\nThe activity should be validated to confirm whether it was initiated for an approved administrative or business purpose. The provided event details alone do not confirm malicious activity."
+    },
+    {
+      "id": "PB-002",
+      "name": "Account Created and Deleted",
+      "category": "Identity",
+      "description": "The monitoring team identified an account creation event followed by deletion within a short timeframe. Validate the account lifecycle, the initiating identity, and whether the activity was expected as part of an approved administrative or provisioning workflow.",
+      "fields": [
+        {
+          "key": "CreatedUser",
+          "value": "temp.contractor"
+        },
+        {
+          "key": "CreatedByUser",
+          "value": "admin.user"
+        },
+        {
+          "key": "DeletedByUser",
+          "value": "admin.user"
+        },
+        {
+          "key": "HostName",
+          "value": "AD01.corp.local"
+        },
+        {
+          "key": "CreationTime",
+          "value": "2026-10-09 09:12:22"
+        },
+        {
+          "key": "DeletionTime",
+          "value": "2026-10-09 09:24:51"
+        },
+        {
+          "key": "TimeDelta",
+          "value": "12 minutes 29 seconds"
+        }
+      ],
+      "template": "The monitoring team observed that the account {{CreatedUser}} was created on {{HostName}} at {{CreationTime}} and subsequently deleted at {{DeletionTime}}, within {{TimeDelta}}. The creation was performed by {{CreatedByUser}}, and the deletion was attributed to {{DeletedByUser}}.\n\nPlease confirm whether this account lifecycle was expected and associated with an approved administrative, contractor onboarding, or testing activity. The sequence alone does not establish malicious intent."
+    },
+    {
+      "id": "PB-003",
+      "name": "Multiple Failed Login Attempts",
+      "category": "Identity",
+      "description": "The monitoring team observed repeated authentication failures associated with an account or source. Review the attempt volume, source address, target account, and surrounding successful logins to determine whether the activity is expected or requires further validation.",
+      "fields": [
+        {
+          "key": "UserName",
+          "value": "a.lee"
+        },
+        {
+          "key": "SourceIP",
+          "value": "198.51.100.24"
+        },
+        {
+          "key": "HostName",
+          "value": "VPN-GW-01"
+        },
+        {
+          "key": "FailedAttempts",
+          "value": "18"
+        },
+        {
+          "key": "FirstSeen",
+          "value": "2026-10-09 07:55:02"
+        },
+        {
+          "key": "LastSeen",
+          "value": "2026-10-09 08:03:47"
+        }
+      ],
+      "template": "The monitoring team observed {{FailedAttempts}} failed login attempts for user {{UserName}} on {{HostName}} from source IP {{SourceIP}} between {{FirstSeen}} and {{LastSeen}}.\n\nPlease validate whether the source and authentication activity are expected. If the activity is not recognised, review the affected account and confirm whether any successful authentication occurred during or after this period."
+    },
+    {
+      "id": "PB-004",
+      "name": "Malware / PUP Detection",
+      "category": "Endpoint",
+      "description": "The monitoring team identified an endpoint security detection that requires review. Validate the detection name, file location, endpoint, and action taken by the security product before determining the appropriate remediation.",
+      "fields": [
+        {
+          "key": "HostName",
+          "value": "LAP-118"
+        },
+        {
+          "key": "UserName",
+          "value": "m.rao"
+        },
+        {
+          "key": "DetectionName",
+          "value": "Potentially Unwanted Program"
+        },
+        {
+          "key": "FilePath",
+          "value": "C:\\Users\\m.rao\\Downloads\\tool.exe"
+        },
+        {
+          "key": "ActionTaken",
+          "value": "Quarantined"
+        },
+        {
+          "key": "DetectionTime",
+          "value": "2026-10-09 08:18:34"
+        }
+      ],
+      "template": "The monitoring team observed an endpoint security detection on {{HostName}} at {{DetectionTime}}. The alert, {{DetectionName}}, was associated with user {{UserName}} and the file path {{FilePath}}. The security product reported the action taken as: {{ActionTaken}}.\n\nPlease confirm whether the file and related application are required for business purposes. If not required, remove the application and its associated files in accordance with your endpoint remediation process."
+    },
+    {
+      "id": "IMP-mv5lk3co-0",
+      "name": "Suspicious PowerShell Execution",
+      "category": "Endpoint",
+      "description": "The monitoring team identified PowerShell execution that may require validation. Review the initiating process, user context, command line, and destination details to determine whether the activity aligns with approved administrative or business operations.",
+      "fields": [
+        {
+          "key": "HostName",
+          "value": ""
+        },
+        {
+          "key": "UserName",
+          "value": ""
+        },
+        {
+          "key": "ProcessName",
+          "value": ""
+        },
+        {
+          "key": "CommandLine",
+          "value": ""
+        },
+        {
+          "key": "EventTime",
+          "value": ""
+        }
+      ],
+      "template": "The monitoring team observed suspicious PowerShell execution on endpoint {{HostName}} at {{EventTime}}. The activity was associated with user {{UserName}}, with process {{ProcessName}} executing the command line: {{CommandLine}}.\n\nThe activity should be validated to confirm whether it was initiated for an approved administrative or business purpose. The provided event details alone do not confirm malicious activity."
+    },
+    {
+      "id": "IMP-mv5lk3co-1",
+      "name": "Account Created and Deleted",
+      "category": "Identity",
+      "description": "The monitoring team identified an account creation event followed by deletion within a short timeframe. Validate the account lifecycle, the initiating identity, and whether the activity was expected as part of an approved administrative or provisioning workflow.",
+      "fields": [
+        {
+          "key": "CreatedUser",
+          "value": "temp.contractor"
+        },
+        {
+          "key": "CreatedByUser",
+          "value": "admin.user"
+        },
+        {
+          "key": "DeletedByUser",
+          "value": "admin.user"
+        },
+        {
+          "key": "HostName",
+          "value": "AD01.corp.local"
+        },
+        {
+          "key": "CreationTime",
+          "value": "2026-10-09 09:12:22"
+        },
+        {
+          "key": "DeletionTime",
+          "value": "2026-10-09 09:24:51"
+        },
+        {
+          "key": "TimeDelta",
+          "value": "12 minutes 29 seconds"
+        }
+      ],
+      "template": "The monitoring team observed that the account {{CreatedUser}} was created on {{HostName}} at {{CreationTime}} and subsequently deleted at {{DeletionTime}}, within {{TimeDelta}}. The creation was performed by {{CreatedByUser}}, and the deletion was attributed to {{DeletedByUser}}.\n\nPlease confirm whether this account lifecycle was expected and associated with an approved administrative, contractor onboarding, or testing activity. The sequence alone does not establish malicious intent."
+    },
+    {
+      "id": "IMP-mv5lk3co-2",
+      "name": "Multiple Failed Login Attempts",
+      "category": "Identity",
+      "description": "The monitoring team observed repeated authentication failures associated with an account or source. Review the attempt volume, source address, target account, and surrounding successful logins to determine whether the activity is expected or requires further validation.",
+      "fields": [
+        {
+          "key": "UserName",
+          "value": "a.lee"
+        },
+        {
+          "key": "SourceIP",
+          "value": "198.51.100.24"
+        },
+        {
+          "key": "HostName",
+          "value": "VPN-GW-01"
+        },
+        {
+          "key": "FailedAttempts",
+          "value": "18"
+        },
+        {
+          "key": "FirstSeen",
+          "value": "2026-10-09 07:55:02"
+        },
+        {
+          "key": "LastSeen",
+          "value": "2026-10-09 08:03:47"
+        }
+      ],
+      "template": "The monitoring team observed {{FailedAttempts}} failed login attempts for user {{UserName}} on {{HostName}} from source IP {{SourceIP}} between {{FirstSeen}} and {{LastSeen}}.\n\nPlease validate whether the source and authentication activity are expected. If the activity is not recognised, review the affected account and confirm whether any successful authentication occurred during or after this period."
+    },
+    {
+      "id": "IMP-mv5lk3co-3",
+      "name": "Malware / PUP Detection",
+      "category": "Endpoint",
+      "description": "The monitoring team identified an endpoint security detection that requires review. Validate the detection name, file location, endpoint, and action taken by the security product before determining the appropriate remediation.",
+      "fields": [
+        {
+          "key": "HostName",
+          "value": "LAP-118"
+        },
+        {
+          "key": "UserName",
+          "value": "m.rao"
+        },
+        {
+          "key": "DetectionName",
+          "value": "Potentially Unwanted Program"
+        },
+        {
+          "key": "FilePath",
+          "value": "C:\\Users\\m.rao\\Downloads\\tool.exe"
+        },
+        {
+          "key": "ActionTaken",
+          "value": "Quarantined"
+        },
+        {
+          "key": "DetectionTime",
+          "value": "2026-10-09 08:18:34"
+        }
+      ],
+      "template": "The monitoring team observed an endpoint security detection on {{HostName}} at {{DetectionTime}}. The alert, {{DetectionName}}, was associated with user {{UserName}} and the file path {{FilePath}}. The security product reported the action taken as: {{ActionTaken}}.\n\nPlease confirm whether the file and related application are required for business purposes. If not required, remove the application and its associated files in accordance with your endpoint remediation process."
+    },
+    {
+      "id": "IMP-mv5lk3co-4",
+      "name": "Internal Plain Text Passwords Detected",
+      "category": "Network",
+      "description": "This incident highlights the security risks associated with transmitting credentials over unencrypted communication channels, as sensitive authentication data may be exposed to interception by unauthorized parties.",
+      "fields": [
+        {
+          "key": "Source_IP",
+          "value": ""
+        },
+        {
+          "key": "Source_Host",
+          "value": ""
+        },
+        {
+          "key": "Source_Port",
+          "value": ""
+        },
+        {
+          "key": "Source",
+          "value": ""
+        },
+        {
+          "key": "Destination_IPAddress",
+          "value": ""
+        },
+        {
+          "key": "Destination_Host",
+          "value": ""
+        },
+        {
+          "key": "Destination_Port",
+          "value": ""
+        },
+        {
+          "key": "Event_Count",
+          "value": ""
+        },
+        {
+          "key": "Activity_Description",
+          "value": ""
+        },
+        {
+          "key": "Source_MAC_Address",
+          "value": ""
+        },
+        {
+          "key": "Destination_MAC_Address",
+          "value": ""
+        },
+        {
+          "key": "Application_Name",
+          "value": ""
+        },
+        {
+          "key": "Protocol",
+          "value": ""
+        },
+        {
+          "key": "Kill_Chain_Stage",
+          "value": ""
+        }
+      ],
+      "template": "As part of the monitoring activity, we observed an incident titled \"Internal Plain Text Passwords Detected\" triggered for the host \"{{Source_Host}}\".\n\nThis incident highlights the security risks associated with transmitting credentials over unencrypted communication channels, as sensitive authentication data may be exposed to interception by unauthorized parties. \n\nUpon investigation, we found that a plain-text password was detected in unencrypted network traffic associated with the application \"{{Application_Name}}\". Total \"{{Event_Count}}\" event was observed for this activity.\n\nThe communication originated from \"{{Source_Host}}\" (\"{{Source_IP}}\") using source port \"{{Source_Port}}\" and source MAC address \"{{Source_MAC_Address}}\", and was directed to \"{{Destination_Host}}\" (IP: \"{{Destination_IPAddress}}\") on destination port \"{{Destination_Port}}\" with destination MAC address \"{{Destination_MAC_Address}}\".\n\nAccording to the activity details, \"{{Activity_Description}}\". The communication was observed over the \"{{Protocol}}\" protocol.\n\nThis activity has been classified under the XDR kill chain stage \"{{Kill_Chain_Stage}}\", which may indicate reconnaissance activity, insecure service configurations, or potential opportunities for lateral movement within the environment."
+    },
+    {
+      "id": "IMP-mv5lk3co-5",
+      "name": "Brute Force Attack | ZAFCO",
+      "category": "Identity",
+      "description": "Detects repeated failed login attempts that may indicate an attempt to guess passwords and gain unauthorized access to user accounts or systems.",
+      "fields": [
+        {
+          "key": "Event_Count",
+          "value": ""
+        },
+        {
+          "key": "Description",
+          "value": ""
+        },
+        {
+          "key": "User_Name",
+          "value": ""
+        },
+        {
+          "key": "Event_Type",
+          "value": ""
+        },
+        {
+          "key": "Locations",
+          "value": ""
+        },
+        {
+          "key": "Outcome",
+          "value": ""
+        },
+        {
+          "key": "Error_Code",
+          "value": ""
+        },
+        {
+          "key": "Logon_Error",
+          "value": ""
+        },
+        {
+          "key": "Reason",
+          "value": ""
+        },
+        {
+          "key": "UserAgent",
+          "value": ""
+        }
+      ],
+      "template": "As a part of the monitoring team, we observed an incident titled “Brute Force Attack” involving the user name \"{{User_Name}}\". \n\nDescription: {{Description}}\n\nUpon investigation, we observed {{Event_Count}} failed login attempts from multiple source IPs \"\", \"\" and \"\", etc associated with the different ISPs, geolocated in \"{{Locations}}\". The activity was associated with the user name \"{{User_Name}}”.\n\nFailure Logins: \nWe observed total {{Event_Count}} {{Event_Type}} events from the multiple source IPs from differeht geo locations. The activity returned Error Code \"{{Error_Code}}\" and Logon Error: {{Logon_Error}}.\n\nOutcome for all the authentication events was found to be \"{{Outcome}}\". The reason for the failed attempts is observed as \"{{Reason}}\".\n\nThese login attempts were observed from an , with the user-agent observed as “{{UserAgent}}”.\n\nRefer attached excel file for more details.",
+      "recommendations": [
+        "Confirm with the user whether the observed authentication attempts were legitimate.",
+        "Reset the user's password if the activity is confirmed to be unauthorized.",
+        "Verify that MFA is enabled and enforced for the affected account and all externally accessible user accounts to prevent unauthorized access."
+      ]
+    },
+    {
+      "id": "IMP-mv5lk3co-6",
+      "name": "Policy Violation (ZAFCO)",
+      "category": "Network",
+      "description": "The activity represents a short duration communication attempt from the internal host to a prohibited external destination.",
+      "fields": [
+        {
+          "key": "Src_Host",
+          "value": ""
+        },
+        {
+          "key": "Dst_Host_Name",
+          "value": ""
+        },
+        {
+          "key": "Dst_IP",
+          "value": "92.52.1.80"
+        },
+        {
+          "key": "Dst_Asn_Org",
+          "value": ""
+        },
+        {
+          "key": "Dst_Geolite_Country",
+          "value": ""
+        },
+        {
+          "key": "Event_Category",
+          "value": ""
+        },
+        {
+          "key": "Protocol_Str",
+          "value": ""
+        },
+        {
+          "key": "Pkt_Count",
+          "value": ""
+        },
+        {
+          "key": "Byte_Count",
+          "value": ""
+        },
+        {
+          "key": "Flow_Count",
+          "value": ""
+        }
+      ],
+      "template": "As part of the monitoring team, we observed an incident titled \"Policy Violation\" involving internal host \"{{Src_Host}}\".\n\nWe found an internal host \"{{Src_Host}}\" tried to communicate with the public host \"{{Dst_Host_Name}} ({{Dst_IP}})\". The activity was categorized as \"{{Event_Category}}\".\n\nThe destination IP “{{Dst_IP}}” belongs to ISP \"{{Dst_Asn_Org}}\" country \"{{Dst_Geolite_Country}}\". This IP was found to be \"\" .\n\nBased on the investigation, communication was observed, but the logs do not conclusively confirm a successful suspicious application level connection.\n\nThe observed traffic involved \"{{Protocol_Str}}\" communication between source and destination with \"{{Pkt_Count}}\" packets and \"{{Byte_Count}}\" bytes recorded across \"{{Flow_Count}}\" flows.\n\nThe activity represents a short duration communication attempt from the internal host to a prohibited external destination. No evidence of sustained communication or significant data transfer was identified.\n\nKindly refer to the attached Excel.",
+      "recommendations": [
+        "Validate whether communication from the Source IP to the Destination IP/Host was expected.",
+        "If the communication is not required for business purposes, restrict or block communication with the Destination IP.",
+        "Perform a full EDR scan on the Source Host to identify any potentially unwanted, malicious, or unauthorized files and processes."
+      ]
+    }
+  ]
+}
