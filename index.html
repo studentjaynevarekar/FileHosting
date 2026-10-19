@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOC Playbook Studio</title>
+<link rel="stylesheet" href="src/css/styles.css">
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<div class="app-root">
+<div class="layout">
+<aside class="sidebar">
+ <div class="brand"><div class="brand-icon">⌘</div><div><div class="brand-name">SOC Playbook Studio</div><div class="brand-sub">Incident analysis workspace</div></div></div>
+ <div><div class="nav-label">Workspace</div><nav class="nav" aria-label="Main navigation"><button class="active" data-page="workspace"><span class="ico">▦</span> Playbook workspace</button><button data-page="admin"><span class="ico">＋</span> Use case builder</button><button data-page="library"><span class="ico">▤</span> Playbook library</button><button data-page="apps"><span class="ico">⬡</span> Apps</button><button data-page="parser"><span class="ico">⌘</span> Log parser</button></nav></div>
+ <div class="sidebar-bottom"><div class="tip"><strong>✦ Built for SOC analysts</strong>Keep your investigation wording consistent. Update the event values once and generate a ready-to-use analysis.</div><div class="user-pill"><div class="avatar">SA</div><div class="user-meta"><strong>Security Analyst</strong><span>Analyst workspace · Demo</span></div></div></div>
+</aside>
+<main id="main-content" tabindex="-1">
+ <header class="topbar"><div class="crumb">Workspace <span> / </span> <b id="crumb-current">Playbook workspace</b></div><div class="top-actions"><div class="status"><span class="dot"></span> Local demo mode</div><button class="icon-btn" id="export-btn" title="Export playbooks as JSON" aria-label="Export playbooks as JSON">⇩ Export</button><button class="icon-btn" id="import-btn" title="Import playbooks from JSON" aria-label="Import playbooks from JSON">⇧ Import</button><input id="import-file" type="file" accept="application/json,.json" class="hidden"></div></header>
+ <section class="content" id="workspace-page">
+  <div class="page-heading"><div><div class="eyebrow">Your incident workflow</div><h1>Turn event data into clear analysis.</h1><p>Choose a use case, update the field values, and your incident analysis refreshes automatically—ready to copy into your case notes.</p></div><button class="btn btn-primary" id="new-usecase-top">＋ Create use case</button></div>
+  <div class="stats"><div class="stat"><div class="stat-top">Available playbooks <span class="stat-icon">▤</span></div><div class="stat-num" id="stat-playbooks">4</div><div class="stat-foot">Reusable analysis templates</div></div><div class="stat"><div class="stat-top">Fields in selected playbook <span class="stat-icon">⌘</span></div><div class="stat-num" id="stat-fields">5</div><div class="stat-foot">Values you can customise</div></div><div class="stat"><div class="stat-top">Output status <span class="stat-icon">✓</span></div><div class="stat-num" style="font-size:20px;color:var(--green)">Live</div><div class="stat-foot">Updates as you type</div></div></div>
+  <div class="workspace">
+   <section class="panel"><div class="panel-head"><div><h2>Playbook selection</h2><p>Pick a detection or policy</p></div><span class="tag blue" id="playbook-count">04 templates</span></div><div class="panel-body"><input class="search" id="playbook-search" placeholder="⌕  Search playbooks…" aria-label="Search playbooks"><div class="filter-row"><button class="chip active" data-filter="All">All</button><button class="chip" data-filter="Identity">Identity</button><button class="chip" data-filter="Endpoint">Endpoint</button><button class="chip" data-filter="Network">Network</button></div><div class="playbook-list" id="playbook-list"></div><button class="btn btn-soft" id="more-playbooks" type="button" aria-expanded="false" style="width:100%;margin-top:10px">Show more playbooks…</button><div class="footer-note">Select a playbook to load its description and fields.</div></div></section>
+   <section class="panel"><div class="panel-head"><div><h2>Analysis builder</h2><p>Fill in the case-specific values below</p></div><span class="tag green">● Auto-generated</span></div><div class="panel-body" id="analysis-panel"><div class="detail-title"><div><h2 id="selected-title">Suspicious PowerShell Execution</h2><p id="selected-subtitle">Endpoint · Incident analysis template</p></div><span class="tag blue" id="selected-id">PB-001</span></div><div class="description-box"><div class="desc-label">Use case description</div><p id="selected-description"></p></div><div class="section-row"><h3>Incident fields</h3><span id="field-count-label">5 values</span></div><div class="field-table"><div class="field-head"><span>Field key</span><span>Value</span><span></span></div><div id="field-rows"></div></div><div class="field-actions"><button class="btn" id="add-value-field">＋ Add field value</button><button class="btn btn-soft" id="reset-fields">↺ Reset values</button></div><div class="generated"><div class="generated-head"><strong>✧ Generated incident analysis</strong><span>LIVE PREVIEW</span></div><div class="generated-content" id="generated-output" aria-live="polite"></div><div class="output-actions"><button class="btn" id="download-txt">⇩ Download .txt</button><button class="btn btn-primary" id="copy-output">▢ Copy analysis</button></div></div></div></section>
+  </div>
+
+ <section class="toolkit-grid" id="soc-toolkit" aria-label="Practical SOC investigation tools">
+  <section class="toolkit-panel">
+   <div class="panel-head"><div><h2>Incident context &amp; handoff</h2><p>Add case details to create a consistent shift handover note.</p></div><span class="tag blue">LOCAL</span></div>
+   <div class="panel-body">
+    <div class="case-grid">
+     <div class="form-field"><label for="case-id">Case / ticket ID</label><input id="case-id" maxlength="100" placeholder="e.g. INC-10428"></div>
+     <div class="form-field"><label for="case-severity">Severity</label><select id="case-severity"><option>Not assessed</option><option>Critical</option><option>High</option><option>Medium</option><option>Low</option><option>Informational</option></select></div>
+     <div class="form-field"><label for="case-source">Alert source / SIEM</label><input id="case-source" maxlength="120" placeholder="e.g. CrowdStrike / SIEM rule"></div>
+     <div class="form-field"><label for="case-analyst">Analyst</label><input id="case-analyst" maxlength="100" placeholder="Analyst name / initials"></div>
+     <div class="form-field"><label for="case-disposition">Current disposition</label><select id="case-disposition"><option>Investigating</option><option>Benign / Expected</option><option>True Positive</option><option>False Positive</option><option>Escalated</option><option>Monitoring</option></select></div>
+     <div class="form-field"><label for="case-confidence">Assessment confidence</label><select id="case-confidence"><option>Not assessed</option><option>Low</option><option>Medium</option><option>High</option></select></div>
+     <div class="form-field full"><label for="case-findings">Key findings / actions taken</label><textarea id="case-findings" rows="3" maxlength="3000" placeholder="Evidence checked, correlated events, user validation, containment actions, or why more review is needed."></textarea></div>
+     <div class="form-field full"><label for="case-next">Pending actions / next shift</label><textarea id="case-next" rows="2" maxlength="2000" placeholder="What remains to be checked, who owns it, and any deadline."></textarea></div>
+    </div>
+    <div class="toolkit-actions"><button class="btn btn-primary" id="copy-handoff">▢ Copy handoff note</button><button class="btn" id="download-handoff">⇩ Download handoff .txt</button><button class="btn" id="clear-case">Clear case details</button></div>
+    <p class="helper" style="margin-top:10px">Case details are saved in this browser on this device. Avoid entering credentials, secrets, or unnecessary personal data.</p>
+   </div>
+  </section>
+  <section class="toolkit-panel">
+   <div class="panel-head"><div><h2>Investigation checklist</h2><p>Track common triage steps before closing or escalating.</p></div><span class="tag green" id="check-count">0 / 7 complete</span></div>
+   <div class="panel-body">
+    <div class="checklist" id="investigation-checklist">
+     <label class="check-row"><input type="checkbox" data-check="alert"><span><strong>Validate the alert</strong><br>Confirm rule logic, severity, event time, and affected asset.</span></label>
+     <label class="check-row"><input type="checkbox" data-check="entity"><span><strong>Identify impacted entities</strong><br>Review user, host, source/destination, and business owner.</span></label>
+     <label class="check-row"><input type="checkbox" data-check="context"><span><strong>Review surrounding activity</strong><br>Correlate related events and establish a timeline.</span></label>
+     <label class="check-row"><input type="checkbox" data-check="reputation"><span><strong>Check indicator reputation</strong><br>Validate relevant IPs, domains, URLs, or hashes using approved tools.</span></label>
+     <label class="check-row"><input type="checkbox" data-check="baseline"><span><strong>Compare with expected behaviour</strong><br>Check known-good activity, allowlists, and change records.</span></label>
+     <label class="check-row"><input type="checkbox" data-check="evidence"><span><strong>Record evidence and rationale</strong><br>Document findings and why the disposition is appropriate.</span></label>
+     <label class="check-row"><input type="checkbox" data-check="handoff"><span><strong>Set next action and ownership</strong><br>Escalate when needed and record pending follow-up.</span></label>
+    </div>
+    <div class="check-progress" aria-hidden="true"><span id="check-progress-fill"></span></div><div class="helper" id="check-progress-text">Complete the relevant steps; not every alert requires every check.</div>
+    <div class="toolkit-actions"><button class="btn" id="reset-checklist">↺ Reset checklist</button><button class="btn btn-soft" id="copy-checklist">▢ Copy checklist status</button></div>
+   </div>
+   <div class="panel-head"><div><h2>IOC quick handoff</h2><p>Extract likely indicators from the selected playbook fields.</p></div></div>
+   <div class="panel-body"><div class="ioc-output" id="ioc-output" aria-live="polite">No likely indicators detected yet. Add indicator values to fields such as SourceIP, Domain, URL, or FileHash.</div><div class="toolkit-actions"><button class="btn" id="refresh-iocs">↻ Detect IOCs</button><button class="btn" id="copy-iocs">▢ Copy IOC list</button><button class="btn btn-primary" id="open-ioc-scanner">↗ Open Bulk IOC Scanner</button></div><p class="helper" style="margin-top:10px">The scanner opens separately. Nothing is automatically uploaded; copy the detected indicators and paste them into your scanner intentionally.</p></div>
+  </section>
+ </section>
+ </section>
+
+ <section class="content hidden" id="parser-page">
+  <div class="page-heading">
+   <div><div class="eyebrow">Security-first investigation</div><h1>Common Log Parser</h1><p>Paste or load local security logs, normalize common fields, search events, and extract likely indicators. Parsing runs locally in this browser tab.</p></div>
+   <span class="tag green">Local processing</span>
+  </div>
+  <div class="parser-privacy notice"><strong>Data handling:</strong> Log contents are processed in this page only. They are not uploaded to a server or sent to threat-intelligence services. Review sensitive data before exporting or copying it.</div>
+  <section class="panel parser-input-panel">
+   <div class="panel-head"><div><h2>1. Provide log data</h2><p>Choose a field profile for email, firewall, network, web, endpoint, identity, VPN, cloud, or mixed SIEM logs. All parsing remains local.</p></div><span class="tag blue">TXT · LOG · JSON</span></div>
+   <div class="panel-body">
+    <div class="form-field" style="margin-bottom:14px;max-width:560px"><label class="parser-label" for="parser-profile">Log type / field profile</label><select id="parser-profile" class="search" style="width:100%"><option value="auto">Auto-detect from the logs (recommended)</option><option value="email">Email activity / Exchange / Microsoft Graph</option><option value="firewall">Firewall / Network access</option><option value="network">Network security / IDS / C2</option><option value="web">Web proxy / Gateway / WAF</option><option value="endpoint">Endpoint / EDR / Process activity</option><option value="auth">Authentication / Active Directory / Kerberos</option><option value="vpn">VPN / Remote access</option><option value="cloud">Cloud audit / IAM</option><option value="generic">Generic SIEM / mixed events</option></select><p class="helper" id="parser-profile-help">Choose the log type to prioritize its key fields; remaining parsed metadata and candidate IOCs stay available under Other fields / IOC. Auto-detect uses a focused layout when one type dominates; mixed datasets use a general layout.</p></div>
+    <label class="parser-label" for="log-input">Raw logs</label>
+    <textarea id="log-input" class="parser-textarea" spellcheck="false" placeholder='Paste raw logs here. Supports JSON objects/arrays, JSON Lines, Microsoft 365/Azure audit records, syslog-like messages, and key=value or key:value events.&#10;&#10;Example: 2026-10-12T12:30:00Z action=blocked src_ip=203.0.113.10 dst_ip=198.51.100.20 user=analyst event_id=4625'></textarea>
+    <div class="parser-input-actions">
+     <label class="btn parser-upload-label" for="log-file-input">↑ Load local file</label>
+     <input id="log-file-input" type="file" accept=".txt,.log,.json,text/plain,application/json" class="visually-hidden">
+     <span id="log-file-name" class="helper">No file selected</span>
+     <button class="btn" id="parser-sample" type="button">Load sample logs</button>
+     <button class="btn" id="parser-clear" type="button">Clear</button>
+     <button class="btn btn-primary" id="parse-logs" type="button">Parse logs →</button>
+    </div>
+    <p class="helper">Files are read locally using your browser. Large files may take a moment; avoid uploading secrets to any external service.</p>
+   </div>
+  </section>
+  <section class="parser-stats" aria-label="Parsing summary">
+   <div class="stat"><div class="stat-top">Input events <span class="stat-icon">≋</span></div><div class="stat-num" id="parser-stat-input">0</div><div class="stat-foot">Log records detected</div></div>
+   <div class="stat"><div class="stat-top">Parsed events <span class="stat-icon">✓</span></div><div class="stat-num" id="parser-stat-parsed">0</div><div class="stat-foot">Structured records</div></div>
+   <div class="stat"><div class="stat-top">Likely indicators <span class="stat-icon">⌕</span></div><div class="stat-num" id="parser-stat-iocs">0</div><div class="stat-foot">Unique values found</div></div>
+  </section>
+  <section class="panel parser-results-panel">
+   <div class="panel-head parser-results-head"><div><h2>2. Parsed events</h2><p id="parser-results-caption">Run the parser to see normalized events here.</p></div><div class="parser-export-actions"><button class="btn" id="parser-copy-json" type="button" disabled>Copy JSON</button><button class="btn" id="parser-download-json" type="button" disabled>Export JSON</button><button class="btn" id="parser-download-csv" type="button" disabled>Export CSV</button></div></div>
+   <div class="panel-body">
+    <div class="parser-filters">
+     <input class="search" id="parser-search" type="search" placeholder="Search IP, username, event ID, message…" aria-label="Search parsed events">
+     <select class="search" id="parser-category" aria-label="Filter by event category"><option value="all">All categories</option><option value="Firewall">Firewall</option><option value="VPN">VPN</option><option value="Endpoint">Endpoint</option><option value="Authentication">Authentication</option><option value="SIEM">SIEM</option><option value="Web Application Firewall">Web Application Firewall</option><option value="Network Security">Network Security</option><option value="Cloud Audit">Cloud Audit</option><option value="Email Security">Email Security</option><option value="Email Message / Exchange">Email Message / Exchange</option><option value="Web Proxy / Gateway">Web Proxy / Gateway</option><option value="Endpoint Security">Endpoint Security</option><option value="Directory Services">Directory Services</option><option value="Other">Other / Unclassified</option></select>
+     <select class="search" id="parser-view" aria-label="Parsed event display"><option value="table">Normalized table</option><option value="raw">Original raw records</option></select>
+    </div>
+    <div id="parser-error" class="parser-error hidden" role="status"></div>
+    <div class="parser-table-wrap" id="parser-table-wrap"><table class="parser-table"><thead id="parser-table-head"><tr><th>Time</th><th>Category</th><th>Event / Action</th><th>Source IP</th><th>Destination IP</th><th>User</th><th>Host</th><th>Event ID</th><th>Enriched context</th></tr></thead><tbody id="parser-table-body"><tr><td colspan="9" class="parser-empty">Paste logs and select Parse logs to begin.</td></tr></tbody></table></div>
+    <pre class="parser-raw-view hidden" id="parser-raw-view"></pre>
+    <div class="parser-bottom-row"><span class="helper" id="parser-showing">0 events</span><button class="btn" id="parser-copy-iocs" type="button" disabled>Copy likely IOCs</button></div>
+    <div class="parser-ioc-panel"><div class="section-row"><h3>Likely indicators</h3><span>Validate before taking action</span></div><div id="parser-ioc-list" class="parser-ioc-list">No indicators extracted yet.</div></div>
+   </div>
+  </section>
+ </section>
+
+ <section class="content hidden" id="admin-page">
+  <div class="page-heading"><div><div class="eyebrow">Admin tools</div><h1>Build a reusable use case.</h1><p>Define the policy description, required field keys, and analysis template once. Analysts can then reuse it for every new incident.</p></div><button class="btn" id="back-workspace">← Back to workspace</button></div>
+  <div class="admin-layout"><section class="panel"><div class="panel-head"><div><h2 id="form-title">Create a new use case</h2><p>Fields marked with * are required</p></div><span class="tag blue">Template setup</span></div><div class="panel-body"><div class="notice">Use placeholders like <b>{{UserName}}</b> in the analysis template. Matching field keys are replaced automatically, with safe text handling.</div><form id="usecase-form"><div class="form-grid"><div class="form-field"><label for="uc-name">Use case name *</label><input id="uc-name" required maxlength="90" placeholder="e.g. Account created and deleted"></div><div class="form-field"><label for="uc-category">Category *</label><select id="uc-category"><option>Identity</option><option>Endpoint</option><option>Network</option><option>Cloud</option><option>Email</option><option>Other</option></select></div><div class="form-field full"><label for="uc-description">Description shown at the top *</label><textarea id="uc-description" required maxlength="1200" placeholder="Explain what triggered the detection and what the analyst should assess."></textarea></div><div class="form-field full"><label for="uc-fields">Field keys *</label><input id="uc-fields" required placeholder="UserName, HostName, SourceIP, EventTime"><span class="helper">Comma-separated. Use short, clear keys; these become the labels in the analyst's key-value table.</span></div><div class="form-field full"><label for="uc-template">Analysis template *</label><textarea id="uc-template" required style="min-height:190px" placeholder="The monitoring team observed {{EventName}} on endpoint {{HostName}} at {{EventTime}}. The activity was associated with user {{UserName}} from source IP {{SourceIP}}."></textarea><span class="helper">Use {{ExactFieldKey}} for automatic substitution. Unknown placeholders remain visible so missing fields are not silently hidden.</span></div></div><div class="form-field full"><label for="uc-recommendations">Predefined recommendations</label><textarea id="uc-recommendations" placeholder="Enter one recommendation per line..."></textarea><span class="helper">These recommendations will appear at the end of the generated incident analysis.</span></div><div class="admin-actions"><button class="btn btn-primary" type="submit" id="save-usecase">＋ Save use case</button><button class="btn" type="button" id="clear-form">Clear form</button></div></form></div></section></div>
+ </section>
+ <section class="content hidden" id="apps-page">
+  <div class="page-heading"><div><div class="eyebrow">Threat intelligence toolkit</div><h1>Apps</h1><p>Open your approved threat-indicator tools from one place. Choose an app based on the indicator type and your investigation workflow.</p></div></div>
+  <div class="notice"><strong>Manual handoff:</strong> These links open external services in a new tab. This page does not automatically send indicators or case data. Check your organisation's policy before submitting sensitive indicators.</div>
+  <div class="apps-grid">
+   <article class="app-card"><div class="app-card-top"><div class="app-icon">▦</div><span class="tag green">Your tool</span></div><h2>Bulk IOC Scanner</h2><p>Bulk-check a list of IP addresses, domains, URLs, and file hashes using your existing scanner.</p><div class="app-tags"><span class="tag">Bulk IOC</span><span class="tag">Reputation</span><span class="tag">Triage</span></div><a class="btn btn-primary" href="https://bulkiocscanner.onrender.com/" target="_blank" rel="noopener noreferrer">Open Bulk IOC Scanner ↗</a></article>
+   <article class="app-card"><div class="app-card-top"><div class="app-icon">⌖</div><span class="tag">External service</span></div><h2>AbuseIPDB</h2><p>Check IP addresses for reported abusive activity and review community-submitted reputation reports.</p><div class="app-tags"><span class="tag">IP reputation</span><span class="tag">Abuse reports</span></div><a class="btn" href="https://www.abuseipdb.com/" target="_blank" rel="noopener noreferrer">Open AbuseIPDB ↗</a></article>
+   <article class="app-card"><div class="app-card-top"><div class="app-icon">◉</div><span class="tag">External service</span></div><h2>VirusTotal</h2><p>Review file hashes, URLs, domains, and IP addresses using multi-engine reputation and analysis.</p><div class="app-tags"><span class="tag">Files</span><span class="tag">URLs</span><span class="tag">Domains / IPs</span></div><a class="btn" href="https://www.virustotal.com/" target="_blank" rel="noopener noreferrer">Open VirusTotal ↗</a></article>
+   <article class="app-card"><div class="app-card-top"><div class="app-icon">⌁</div><span class="tag">External service</span></div><h2>AlienVault OTX</h2><p>Explore Open Threat Exchange pulses and community-shared threat intelligence for indicators.</p><div class="app-tags"><span class="tag">Threat pulses</span><span class="tag">IOC context</span></div><a class="btn" href="https://otx.alienvault.com/" target="_blank" rel="noopener noreferrer">Open AlienVault OTX ↗</a></article>
+   <article class="app-card"><div class="app-card-top"><div class="app-icon">⌕</div><span class="tag">External service</span></div><h2>urlscan.io</h2><p>Investigate URLs and review website scan results, page behaviour, and related infrastructure.</p><div class="app-tags"><span class="tag">URL analysis</span><span class="tag">Web infrastructure</span></div><a class="btn" href="https://urlscan.io/" target="_blank" rel="noopener noreferrer">Open urlscan.io ↗</a></article>
+   <article class="app-card app-card-future"><div class="app-card-top"><div class="app-icon">＋</div><span class="tag">Coming next</span></div><h2>More threat apps</h2><p>This hub can be expanded with your other GTI tools, internal apps, and approved investigation utilities.</p><div class="app-tags"><span class="tag">Custom links</span><span class="tag">Future integrations</span></div><button class="btn" type="button" id="suggest-app">＋ Plan another app</button></article>
+  </div>
+  <p class="footer-note">External services may require sign-in and can have different terms, rate limits, or data-handling policies. No API keys are stored in this offline page.</p>
+ </section>
+ <section class="content hidden" id="library-page"><div class="page-heading"><div><div class="eyebrow">Template library</div><h1>Your playbook library.</h1><p>Review, select, edit, or remove your incident analysis templates.</p></div><button class="btn btn-primary" id="library-new">＋ Create use case</button></div><section class="panel"><div class="panel-head"><div><h2>Saved playbooks</h2><p>Built-in templates and custom use cases</p></div><input class="search" style="max-width:260px" id="library-search" placeholder="Search library…" aria-label="Search saved playbooks"></div><div class="panel-body"><div class="playbook-list" id="library-list" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))"></div></div></section><div style="margin-top:22px"><section class="panel"><div class="panel-head"><div><h2>How it works</h2><p>Simple template lifecycle</p></div></div><div class="panel-body"><div class="recent-list"><div class="recent-row"><div><strong>1. Define the policy</strong><span>Add a title, category, and analyst-friendly description.</span></div><span class="tag">Setup</span></div><div class="recent-row"><div><strong>2. Add field keys</strong><span>Set the values analysts need to fill for each event.</span></div><span class="tag">Fields</span></div><div class="recent-row"><div><strong>3. Write your template</strong><span>Insert placeholders such as {{HostName}} and {{UserName}}.</span></div><span class="tag">Output</span></div><div class="recent-row"><div><strong>4. Reuse for every case</strong><span>Choose the use case and update values; output changes live.</span></div><span class="tag green">Ready</span></div></div><div class="description-box" style="margin-top:20px"><div class="desc-label">Important for shared access</div><p>With the shared API configured, playbook definitions are saved centrally in the project repository and become available on other devices. Export JSON for a separate backup.</p></div><button class="btn btn-soft" style="width:100%" id="export-admin">⇩ Export all playbooks</button></div></section></div></section>
+</main></div></div>
+<div id="toast" class="toast hidden" role="status"></div>
+
+
+
+<div id="access-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="access-title">
+ <div class="access-card"><h2 id="access-title">Administrator sign in</h2><p>Admin access is required to manage playbooks, cloud storage, and feature settings.</p>
+ <form id="access-form"><label for="access-user">Username</label><input id="access-user" autocomplete="username" required><label for="access-pass">Password</label><input id="access-pass" type="password" autocomplete="current-password" required><p id="access-error" class="hidden" style="color:#d35d69"></p><div class="admin-actions"><button class="btn btn-primary" type="submit">Sign in</button><button class="btn" type="button" id="access-cancel">Continue as local user</button></div></form>
+ <p><strong>Local deployment note:</strong> credentials embedded in an HTML file are suitable only as a convenience gate, not strong security. Anyone who can inspect the source can discover them.</p></div>
+</div>
+
+
+<script src="src/js/config.js"></script>
+<script src="src/js/app.js"></script>
+<script src="src/js/access.js"></script>
+</body></html>
